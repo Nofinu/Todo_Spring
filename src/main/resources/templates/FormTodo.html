@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head th:replace="~{fragments/head.html :: head}"></head>
-<body>
+<body class="d-flex flex-column justify-content-center align-items-center">
 
-
+  <h1 class="text-info">Formulaire Todo</h1>
   <form action="#" th:action="@{/todo/form}" method="post" th:object="${todo}" class="d-flex flex-column mx-auto" style="width: 50%">
     <input th:if="${todo.getId() != 0}" hidden="hidden" type="number" th:field="*{id}" th:value="${todo.getId()}">
     <input hidden="hidden" type="checkbox" th:field="*{complete}" th:value="${todo.isComplete()}">
