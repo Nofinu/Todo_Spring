@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="~{fragments/head.html :: head}"></head>
+<body class="d-flex flex-column justify-content-center align-items-center">
+<h1 class="text-info">ToDo List</h1>
+
+<div style="width: 90%">
+    <table class="table  table-hover table-dark text-center rounded">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">title</th>
+            <th scope="col">content</th>
+            <th scope="col">Due Date</th>
+            <th scope="col">complete</th>
+            <th scope="col">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr th:each="todo : ${todo}">
+            <td th:text="${todo.id}"></td>
+            <td th:text="${todo.title}"></td>
+            <td th:text="${todo.content}"></td>
+            <td th:text="${#dates.format(todo.dueDate,'dd-MM-yyyy')}"></td>
+            <td><a th:class="${todo.complete} ?  'btn bg-success' : 'btn bg-danger' " th:text="${todo.complete} ?  'Do' : 'To Do'" th:href ="@{/todo/status/{id}(id = ${todo.getId()})}" style="width: 150px;height: 50px;color: white"></a></td>
+            <td>
+                <a th:href ="@{/todo/edit/{id}(id = ${todo.getId()})}" class="btn btn-info">Edit</a>
+
+
+                <a th:href ="@{/todo/delete/{id}(id = ${todo.getId()})}" class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
+
+        </tbody>
+    </table>
+</div>
+    <a href="/form" class="btn btn-info">Add ToDo</a>
+</body>
+</html>
