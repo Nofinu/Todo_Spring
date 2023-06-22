@@ -18,15 +18,28 @@ public class TodoController {
     @Autowired
     private ServiceTodo serviceTodo;
 
+    private String select = "all";
+
     @GetMapping("")
     public ModelAndView homePage(){
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("HomeTodo");
         List<Todo> todos = serviceTodo.findAll();
         if(!todos.isEmpty()){
+            if (select.equals("todo")){
+                todos = todos.stream().filter(t-> !t.isComplete()).toList();
+            }else if(select.equals("do")){
+                todos = todos.stream().filter(Todo::isComplete).toList();
+            }
             modelAndView.addObject("todo",todos);
         }
         return modelAndView;
+    }
+
+    @PostMapping("")
+    public String select(@RequestParam("type")String type){
+        select = type;
+        return "redirect:/todo";
     }
 
 
