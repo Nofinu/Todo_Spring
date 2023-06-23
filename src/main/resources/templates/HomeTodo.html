@@ -49,6 +49,7 @@
             <option value="all">all</option>
             <option value="todo">ToDo</option>
             <option value="do">Do</option>
+            <option th:if="${isLogged}" value="urgent">Urgent</option>
         </select>
         <button class="btn btn-info">select</button>
     </form>

@@ -35,6 +35,8 @@ public class TodoController {
                 todos = todos.stream().filter(t-> !t.isComplete()).toList();
             }else if(select.equals("do")){
                 todos = todos.stream().filter(Todo::isComplete).toList();
+            } else if (select.equals("urgent")){
+                todos = todos.stream().filter(t-> t.getDueDate().before(new Date())).toList();
             }
             modelAndView.addObject("todo",todos);
         }
