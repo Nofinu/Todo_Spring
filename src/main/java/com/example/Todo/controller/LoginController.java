@@ -28,6 +28,12 @@ public class LoginController {
         return modelAndView;
     }
 
+    @GetMapping("/loout")
+    public String getLogOut(){
+        _httpsession.removeAttribute("isLogged");
+        return "redirect:/todo";
+    }
+
     @PostMapping("/login/{type}")
     public String postLogin(@PathVariable("type") String type,@ModelAttribute User user){
         if(type.equals("login")){

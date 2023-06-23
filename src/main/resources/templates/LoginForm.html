@@ -1,13 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<head th:replace="~{fragments/head.html :: head}"></head>
+<body class="d-flex flex-column justify-content-center align-items-center">
 
 <h1 class="text-info" th:text="${type}"></h1>
-<form action="#" method="post" th:object="${user}" class="d-flex flex-column mx-auto" style="width: 50%">
+<form action="#" method="post" th:object="${user}" class="d-flex flex-column mx-auto" style="width: 35%">
     <label for="username">UserName</label>
     <input  type="text" th:field="*{username}" id="username">
     <label for="password">Password</label>
