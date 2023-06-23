@@ -6,13 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
-public abstract class IRepository<T> {
+public abstract class IRepositoryTodo<T> {
     protected Session session;
 
     @Autowired
     protected ServiceHibernate _serviceHibernate;
 
-    public IRepository(ServiceHibernate serviceHibernate){
+    public IRepositoryTodo(ServiceHibernate serviceHibernate){
         this._serviceHibernate = serviceHibernate;
         this.session = _serviceHibernate.getSession();
     }
@@ -55,6 +55,10 @@ public abstract class IRepository<T> {
             session.getTransaction().rollback();
         }
         return result;
+    }
+
+    public void end(){
+        session.close();
     }
 
     public abstract T findById(int id);

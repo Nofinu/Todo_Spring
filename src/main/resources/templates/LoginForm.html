@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<h1 class="text-info" th:text="${type}"></h1>
+<form action="#" method="post" th:object="${user}" class="d-flex flex-column mx-auto" style="width: 50%">
+    <label for="username">UserName</label>
+    <input  type="text" th:field="*{username}" id="username">
+    <label for="password">Password</label>
+    <input  type="password" th:field="*{password}" id="password">
+
+    <button class="btn btn-info mx-auto my-2" style="width: 150px" th:text="${type}"></button>
+</form>
+</body>
+</html>

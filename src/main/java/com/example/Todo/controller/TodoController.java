@@ -2,6 +2,7 @@ package com.example.Todo.controller;
 
 import com.example.Todo.Entity.Todo;
 import com.example.Todo.service.Impl.ServiceTodo;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -18,12 +19,16 @@ public class TodoController {
     @Autowired
     private ServiceTodo serviceTodo;
 
+    @Autowired
+    HttpSession _httpsession;
+
     private String select = "all";
 
     @GetMapping("")
     public ModelAndView homePage(){
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("HomeTodo");
+        modelAndView.addObject("isLogged",_httpsession.getAttribute("isLogged"));
         List<Todo> todos = serviceTodo.findAll();
         if(!todos.isEmpty()){
             if (select.equals("todo")){
@@ -47,9 +52,11 @@ public class TodoController {
     @GetMapping("/form")
     public ModelAndView getFormTodo (){
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("FormTodo");
-        modelAndView.addObject("todo",new Todo());
-
+        modelAndView.setViewName("Error");
+        if((boolean) _httpsession.getAttribute("isLogged")){
+            modelAndView.setViewName("FormTodo");
+            modelAndView.addObject("todo",new Todo());
+        }
         return modelAndView;
     }
 
@@ -99,4 +106,5 @@ public class TodoController {
         serviceTodo.delete(id);
         return "redirect:/todo";
     }
+
 }
