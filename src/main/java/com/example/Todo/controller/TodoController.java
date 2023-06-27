@@ -2,9 +2,11 @@ package com.example.Todo.controller;
 
 import com.example.Todo.Entity.Todo;
 import com.example.Todo.service.Impl.ServiceTodo;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -107,6 +109,18 @@ public class TodoController {
     public String deleteTodo(@PathVariable("id") Integer id){
         serviceTodo.delete(id);
         return "redirect:/todo";
+    }
+
+    @GetMapping("/details/{id}")
+    public ModelAndView todoDetails(@PathVariable("id") Integer id, HttpServletResponse response){
+        ModelAndView modelAndView = new ModelAndView();
+        if(serviceTodo.findById(id)!=null){
+            Todo todo =serviceTodo.findById(id);
+            modelAndView.setViewName("TodoDetails");
+            modelAndView.addObject("todo",todo);
+            modelAndView.addObject("images",todo.getImages());
+        }
+        return modelAndView;
     }
 
 }

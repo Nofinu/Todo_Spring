@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="~{fragments/head.html :: head}"></head>
+<body>
+
+<div th:text="${todo.getTitle()}"></div>
+<div th:text="${todo.getContent()}"></div>
+<div th:text="${#dates.format(todo.dueDate,'dd-MM-yyyy')}"></div>
+<div th:each="images : ${images}">
+    <img  th:src="@{/upload-dir/{uri}(uri = ${images.getUri()})}" style="max-height: 300px">
+</div>
+
+
+</body>
+</html>

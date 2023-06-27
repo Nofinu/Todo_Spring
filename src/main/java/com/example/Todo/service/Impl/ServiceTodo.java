@@ -1,46 +1,51 @@
 package com.example.Todo.service.Impl;
 
 import com.example.Todo.Entity.Todo;
-import com.example.Todo.repository.impl.TodoRepository;
+import com.example.Todo.repository.RepositoryTodo;
 import com.example.Todo.service.IServiceTodo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ServiceTodo implements IServiceTodo {
 
     @Autowired
-    private TodoRepository todoRepository;
+    private RepositoryTodo _repositoryTodo;
 
     @Override
     public boolean create(Todo t) {
-        return todoRepository.create(t);
+        _repositoryTodo.save(t);
+        return true;
+
     }
     @Override
     public boolean update(Todo t) {
-        return todoRepository.update(t);
+        _repositoryTodo.save(t);
+        return true;
     }
 
 
     @Override
     public boolean delete(int id) {
-        Todo todo = todoRepository.findById(id);
-        if(todo != null){
-            return  todoRepository.delete(todo);
+        Optional<Todo> todo = _repositoryTodo.findById(id);
+        if(todo.isPresent()){
+            _repositoryTodo.delete(todo.get());
+            return true;
+
         }
         return false;
     }
 
     @Override
     public Todo findById(int id) {
-        return todoRepository.findById(id);
+        return _repositoryTodo.findById(id).get();
     }
 
     @Override
     public List<Todo> findAll() {
-        return todoRepository.findAll();
+        return (List<Todo>) _repositoryTodo.findAll();
     }
 }

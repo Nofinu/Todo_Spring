@@ -18,7 +18,7 @@
 </header>
 
 <div style="width: 90%">
-    <table class="table  table-hover table-dark text-center rounded">
+    <table class="table  table-hover table-dark text-center align-items-center rounded">
         <thead>
         <tr>
             <th scope="col">#</th>
@@ -31,17 +31,23 @@
         </thead>
         <tbody>
 
-        <tr th:each="todo : ${todo}">
-            <td th:text="${todo.id}"></td>
-            <td th:text="${todo.title}"></td>
-            <td th:text="${todo.content}"></td>
-            <td th:text="${#dates.format(todo.dueDate,'dd-MM-yyyy')}"></td>
+        <tr th:each="todo : ${todo}" >
+            <td th:text="${todo.id}" class="align-middle"></td>
+            <td th:text="${todo.title}" class="align-middle"></td>
+            <td th:text="${todo.content}" class="align-middle"></td>
+            <td th:text="${#dates.format(todo.dueDate,'dd-MM-yyyy')}" class="align-middle"></td>
             <td><a th:class="${todo.complete} ?  'btn bg-success' : 'btn bg-danger' " th:text="${todo.complete} ?  'Do' : 'To Do'" th:href ="@{/todo/status/{id}(id = ${todo.getId()})}" style="width: 150px;height: 50px;color: white"></a></td>
             <td>
-                <a th:href ="@{/todo/edit/{id}(id = ${todo.getId()})}" class="btn btn-info">Edit</a>
-
-
-                <a th:href ="@{/todo/delete/{id}(id = ${todo.getId()})}" class="btn btn-danger">Delete</a>
+                <div class="container">
+                    <div class="row">
+                        <div class="col"><a th:href ="@{/todo/edit/{id}(id = ${todo.getId()})}" class="btn btn-info">Edit</a></div>
+                        <div class="col"><a th:href ="@{/todo/details/{id}(id = ${todo.getId()})}" class="btn btn-info">Details</a></div>
+                    </div>
+                    <div class="row" style="margin-top: 5px">
+                        <div class="col"><a th:href ="@{/todo/formupload/{id}(id = ${todo.getId()})}" class="btn btn-success">Add Image</a></div>
+                        <div class="col"><a th:href ="@{/todo/delete/{id}(id = ${todo.getId()})}" class="btn btn-danger">Delete</a></div>
+                    </div>
+                </div>
             </td>
         </tr>
 
@@ -61,5 +67,7 @@
     <a th:if="${isLogged}" href="/todo/form" class="btn btn-info">Add ToDo</a>
 </div>
 
+
+<!--<img th:src="@{/upload-dir/image.jpg}" alt="img test">-->
 </body>
 </html>

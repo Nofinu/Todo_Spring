@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 @Data
@@ -26,11 +27,18 @@ public class Todo {
 
     private boolean complete;
 
+    @OneToMany(mappedBy = "todo",fetch = FetchType.EAGER)
+    private List<Image> images;
+
     public void changeStatus(){
         this.complete = !complete;
     }
 
     public Todo() {
+    }
+
+    public void addImage (Image image){
+        this.images.add(image);
     }
 
     @Override
